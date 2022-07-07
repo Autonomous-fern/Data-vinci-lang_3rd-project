@@ -1,0 +1,13 @@
+import gspread
+import requests
+
+
+sa = gspread.service_account(filename="vici-language-project-1dc3049324f2.json")
+sh = sa.open("Male model agencies Paris/London")
+ws = sh.worksheet("Feuille 1")
+
+
+URL = "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=royaume-uni&spe_mannequin=hommes#038;spe_mannequin=hommes"
+page = requests.get(URL)
+
+print(page.text)
