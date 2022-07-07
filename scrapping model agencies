@@ -12,18 +12,18 @@ ws = sh.worksheet("Feuille 1")  # ouverture du worksheet 1
 # _______Initialisation du scraping_____________________________________________
 URL_1 = "https://mannequinat.fr/liste/agences-de-mannequins/?pays=royaume-uni&spe_mannequin=hommes"
 URL_2 =  "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=royaume-uni&spe_mannequin=hommes#038;spe_mannequin=hommes"
-page = requests.get(URL_1)
+Input_URLs_list = [URL_1, URL_2]
 
-soup = BeautifulSoup(page.content, "html.parser")
-ugly_listing = soup.find(id="pros_listing")  # on récupère les éléments sous la balise d'ID "pros_listing"
-a_tags_in_ugly_listing = ugly_listing.find_all("a")  # parmis ceux trouvées on accède à ceux qui sont sous la balise a
+Output_URLs_list = []  # on va stocker les URL des pages auxquelles on veut accéder pour les scraper par la suite en itérant sur les différentes pages associées chacunes à un unique élément de la data base à rendre
 
+for url in Input_URLs_list:
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, "html.parser")
+    ugly_listing = soup.find(id="pros_listing")  # on récupère les éléments sous la balise d'ID "pros_listing"
+    a_tags_in_ugly_listing = ugly_listing.find_all("a")  # parmis ceux trouvées on accède à ceux qui sont sous la balise a
 
-# on va stocker les URL des pages auxquelles on veut accéder pour les scraper en itération
-pre_URL_database = []
+    for a_tags in a_tags_in_ugly_listing:
+        Output_URL_i = a_tags.get("href")  # parmis a_tags_in_ugly_listing on récupère les valeurs href pour accéder aux url des pages uniques qui comportent les données qu'ont veux pour chaque élément de la data base à constituer
+        Output_URLs_list.append(Output_URL_i)
 
-for a_tags in a_tags_in_ugly_listing:
-    URL_i = a_tags.get("href")  # parmis a_tags_in_ugly_listing on récupère les valeurs href pour accéder aux url des pages uniques qui comportent les données qu'ont veux pour chaque élément de la data base à constituer
-    pre_URL_database.append(URL_i)
-
-print(pre_URL_database)
+print(Output_URLs_list)
