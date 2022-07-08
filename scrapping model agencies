@@ -4,12 +4,16 @@
 import gspread  # module pour la gestion de l'api google
 import requests  # module pour récupérer le code html d'une page
 from bs4 import BeautifulSoup  # module pour lire l'html d'une page
+import time  # nous permet de temporiser les requêtes à l'api dans une loop
 
 
 # _______Initialisation du scraping_____________________________________________
-URL_1 = "https://mannequinat.fr/liste/agences-de-mannequins/?pays=royaume-uni&spe_mannequin=hommes"
-URL_2 = "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=royaume-uni&spe_mannequin=hommes#038;spe_mannequin=hommes"
-Input_URLs_list = [URL_1, URL_2]
+URL_UK1 = "https://mannequinat.fr/liste/agences-de-mannequins/?pays=royaume-uni&spe_mannequin=hommes"
+URL_UK2 = "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=royaume-uni&spe_mannequin=hommes#038;spe_mannequin=hommes"
+URL_FR1 = "https://mannequinat.fr/liste/agences-de-mannequins/?pays=france&spe_mannequin=hommes"
+URL_FR2 = "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=france&spe_mannequin=hommes#038;spe_mannequin=hommes"
+URL_FR3 = "https://mannequinat.fr/liste/agences-de-mannequins/page/3/?pays=france&spe_mannequin=hommes#038;spe_mannequin=hommes"
+Input_URLs_list = [URL_UK1, URL_UK2, URL_FR1, URL_FR2, URL_FR3]
 
 Output_URLs_list = []  # on va stocker les URL des pages auxquelles on veut accéder pour les scraper par la suite en itérant sur les différentes pages associées chacunes à un unique élément de la data base à rendre
 
@@ -49,4 +53,14 @@ sh = sa.open("Male model agencies Paris/London")  # ouverture du fichier gsheet
 ws = sh.worksheet("DATA")  # ouverture du worksheet 1
 
 # ________Ecriture dans le gsheet_______________________________________________
-# on est limité à 60 requête/min/utilisateur pour l'API google
+# (OPTI POTENTIELLE 1 : on veut rajouter les NOUVEAUX éléments uniquement afin de minimiser le nombre de requête en cas de modif de la liste)
+# (OPTI POTENTIELLE 2 : on ajoute les éléments par ligne avec 1 seule boucle for.?? ou pas du tout de boucle et on copie colle la range directement dans le sheet > peut nous faire gagner pas mal de temps)
+
+last_row = len(data_base)
+last_column = len(data_base[0])
+for i in range(last_row):
+    for j in range(last_column):
+        ws.update_cell(i + 2, j + 1, data_base[i][j])
+        time.sleep(1)  # on est limité à 60 requête/min/utilisateur pour l'API google
+
+# ===> runtime = 793.233s (très bof) mais la base de donnée est ok (dispo ici en accès à la demande: https://docs.google.com/spreadsheets/d/1_cxCLggYuWZwb3z1Dg1YC9DXfeS-3WKf15lRxJP_6I4/edit#gid=0)
