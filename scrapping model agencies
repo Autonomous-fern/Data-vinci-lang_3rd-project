@@ -40,8 +40,9 @@ for url in Output_URLs_list:
         adresse = infos_tag[1].next_sibling
         telephone = infos_tag[2].next_sibling
         genres = infos_tag[3].next_sibling
+        website = infos_tag[4].next_sibling.next_sibling.get_text()  # le site internet est inscrit différement des autres infos car le lien est cliquable donc la méthode pour le récupérer n'est pas la même
 
-        contact_i = [agency_name, ville_pays, adresse, telephone, genres]  # on a notre élément au complet
+        contact_i = [agency_name, ville_pays, adresse, telephone, genres, website]  # on a notre élément au complet
         data_base.append(contact_i)  # on ajoute l'élément à la data base afin de tout copier sur le gsheet
     except Exception:
         pass  # try...except nous permet d'ignorer les url potentiellement scrappés qui ne correspondent pas au format d'élément que l'on recherche et qui n'est donc pas un élément de la database.
@@ -61,6 +62,6 @@ last_column = len(data_base[0])
 for i in range(last_row):
     for j in range(last_column):
         ws.update_cell(i + 2, j + 1, data_base[i][j])
-        time.sleep(1)  # on est limité à 60 requête/min/utilisateur pour l'API google
+        time.sleep(1.01)  # on est limité à 60 requête/min/utilisateur pour l'API google
 
 # ===> runtime = 793.233s (très bof) mais la base de donnée est ok (dispo ici en accès à la demande: https://docs.google.com/spreadsheets/d/1_cxCLggYuWZwb3z1Dg1YC9DXfeS-3WKf15lRxJP_6I4/edit#gid=0)
