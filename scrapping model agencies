@@ -5,14 +5,10 @@ import gspread  # module pour la gestion de l'api google
 import requests  # module pour récupérer le code html d'une page
 from bs4 import BeautifulSoup  # module pour lire l'html d'une page
 
-# ________Connection à notre gsheet_____________________________________________
-sa = gspread.service_account(filename="vici-language-project-1dc3049324f2.json")  # ici on se connecte à l'api google via une clée téléchargée et stocjée dans le json
-sh = sa.open("Male model agencies Paris/London")  # ouverture du fichier gsheet
-ws = sh.worksheet("Feuille 1")  # ouverture du worksheet 1
 
 # _______Initialisation du scraping_____________________________________________
 URL_1 = "https://mannequinat.fr/liste/agences-de-mannequins/?pays=royaume-uni&spe_mannequin=hommes"
-URL_2 =  "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=royaume-uni&spe_mannequin=hommes#038;spe_mannequin=hommes"
+URL_2 = "https://mannequinat.fr/liste/agences-de-mannequins/page/2/?pays=royaume-uni&spe_mannequin=hommes#038;spe_mannequin=hommes"
 Input_URLs_list = [URL_1, URL_2]
 
 Output_URLs_list = []  # on va stocker les URL des pages auxquelles on veut accéder pour les scraper par la suite en itérant sur les différentes pages associées chacunes à un unique élément de la data base à rendre
@@ -29,13 +25,28 @@ for url in Input_URLs_list:
 
 # ________Scraping______________________________________________________________
 
-page = requests.get("https://mannequinat.fr/annuaire/3m-models/")
-soup = BeautifulSoup(page.content, "html.parser")
-agency_name = soup.find("h1", class_="ppro_name ff_serif_ital").string
-infos_tag = soup.find("div", class_="ppro_infos").find_all("span", class_="info")
-ville_pays = infos_tag[0].next_sibling
-adresse = infos_tag[1].next_sibling
-phone = infos_tag[2].next_sibling
-genres = infos_tag[3].next_sibling
+data_base = []
+for url in Output_URLs_list:
+    try:
+        page = requests.get(url)  # on parcourt les urls uniques qui contiennet les données à scrapper par éléments
+        soup = BeautifulSoup(page.content, "html.parser")
+        agency_name = soup.find("h1", class_="ppro_name ff_serif_ital").string  # les noms de classes sont liés à des éléments uniques sur ce site donc on peut faire une recherche par l'id "ppro_name..."
+        infos_tag = soup.find("div", class_="ppro_infos").find_all("span", class_="info")  # ici on n'a pas de nom de classe unique qui nous permet d'accéder directement à l'élément donc on passe par une catégorie puis sa descendance
+        ville_pays = infos_tag[0].next_sibling  # next_sibling nous permet de récupérer le text APRES la fermeture du tag
+        adresse = infos_tag[1].next_sibling
+        telephone = infos_tag[2].next_sibling
+        genres = infos_tag[3].next_sibling
 
-print(agency_name, ville_pays, adresse, phone, genres)
+        contact_i = [agency_name, ville_pays, adresse, telephone, genres]  # on a notre élément au complet
+        data_base.append(contact_i)  # on ajoute l'élément à la data base afin de tout copier sur le gsheet
+    except Exception:
+        pass  # try...except nous permet d'ignorer les url potentiellement scrappés qui ne correspondent pas au format d'élément que l'on recherche et qui n'est donc pas un élément de la database.
+
+
+# ________Connection à notre gsheet_____________________________________________
+sa = gspread.service_account(filename="vici-language-project-1dc3049324f2.json")  # ici on se connecte à l'api google via une clée téléchargée et stocjée dans le json
+sh = sa.open("Male model agencies Paris/London")  # ouverture du fichier gsheet
+ws = sh.worksheet("DATA")  # ouverture du worksheet 1
+
+# ________Ecriture dans le gsheet_______________________________________________
+# on est limité à 60 requête/min/utilisateur pour l'API google
