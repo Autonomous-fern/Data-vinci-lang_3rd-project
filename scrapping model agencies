@@ -1,4 +1,5 @@
 # ___________________OBJECTIF : Constituer une base de données des agences de mannequinat homme à Paris et Londres___________________________________________
+"""0 fonctions, 0 classes, c'est volontaire"""
 
 import gspread  # module pour la gestion de l'api google
 import requests  # module pour récupérer le code html d'une page
@@ -26,4 +27,15 @@ for url in Input_URLs_list:
         Output_URL_i = a_tags.get("href")  # parmis a_tags_in_ugly_listing on récupère les valeurs href pour accéder aux url des pages uniques qui comportent les données qu'ont veux pour chaque élément de la data base à constituer
         Output_URLs_list.append(Output_URL_i)
 
-print(Output_URLs_list)
+# ________Scraping______________________________________________________________
+
+page = requests.get("https://mannequinat.fr/annuaire/3m-models/")
+soup = BeautifulSoup(page.content, "html.parser")
+agency_name = soup.find("h1", class_="ppro_name ff_serif_ital").string
+infos_tag = soup.find("div", class_="ppro_infos").find_all("span", class_="info")
+ville_pays = infos_tag[0].next_sibling
+adresse = infos_tag[1].next_sibling
+phone = infos_tag[2].next_sibling
+genres = infos_tag[3].next_sibling
+
+print(agency_name, ville_pays, adresse, phone, genres)
