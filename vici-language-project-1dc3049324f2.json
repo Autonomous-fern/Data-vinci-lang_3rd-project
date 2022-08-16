@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "vici-language-project",
+  "private_key_id": "1dc3049324f2e2159fad0d65c277e6e969e2af07",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCgWo+eFVdezVn7\nyzxFIq8PWEbrOEB3qDBXEKxQ4ab45yg9jpPsDUQxiQLcTnzMO8+k0IReBSyEZxS0\nD0IroZpSlC6VWkbez+VSh3ZaVIdPMQHgJGZSBRssUYdat1OJRD+G5HeDTckmGrp+\nS97FiPmte7cU/LtGj+KYKq2EGx5LHBdMTVJKkYmNs/XUUqIoRNP+7L2ihiXAGUag\n059ZDP8n6d32cFX0spBGYJQtrAPoHl71uxiAmnna2vYOxDILtp50rcfp/k5OZRzP\n3X2cKaYsy6jGPOw8HCDclxe4QM934PlCXCBLrwbc9ilkx5JYt2u5Y7kWXKzYNx0J\nUal0XdoZAgMBAAECggEAAMZQXoTRhI7V6OpjZkH19Xj7qwLhztkI1nbW+kV7FsWG\n01kE4LVzjjVHRpSwD0xh9WJpNm/H5AaSdZGDuySWQSnyK88KThvByq2Y7QZuusSa\nYJwCH0AZ/kE13IKU3GkCmkVVEgva1WEvUdE78YckoDdkrkhh2oQXpdN49J92M4oK\nNXSFZCh4cr/tXQpORpYLG1UbxvyU+M8P+5WOYkMCdOHV8xIsiiJvOwIuunlam/CF\ntMCrX56bMpRoomnn+dsFUEXk2aQBxGphw2m8MHFfvNKDJxTC75vKb4s08V1M8Ir5\n7RF1C9N96VKuWQ/psW7rRu0J1X+gUKqkyPXIwKmm4QKBgQDMjsVAH5kZWwK/2mmE\nQZSrbt3pZ7IGgZiXqhf59x6sZPoiptkC99//PjjTVvpooGAVY1H5xCiWbKeOlLJq\n8nFO7jqTkQf4BJ21BDYgN4qD5l2HRYzK8gHWVWO3XVWHSKNxZkfSdtO05pvgxBI2\npEqgdY1OAg7ske8DA3DBOFRFEQKBgQDIrfuXD+iOZjHxPrRkBEofToipWzLfxdpm\nxEf8+J0lIr885wMXtlpt5643zaVwiPywjubPFspYD6f7tG1Z5yu0L57avb7DrnhW\nmxycoq+t4k/FmKsIpX2B9mib0HTPqRXR+z76sdrtClkMVjlwrcdxqugVVzdn9gkD\nrKYG6qakiQKBgDMZGvborcLitC4erisGgs/MMwziBVuQtgB00eZ0L6pa0w0i5qTS\nLJdDAMjyOj02iqntFIYy1Py2iaiZRnRmuZ1A70r7eKUg6hBUy/yCQ0ytmAF5gzET\nARh8Xhto6juQDpv+M8TEQCA5VwjvkakqoyWwF6s74mSAE9eJ3Xm2y34xAoGAPB1i\nMG5ji8SxUUMnZo6iZZ5w8cqQAtiSBBboOa9/44/1GZlaI9BMZn/wgGbqGDvw9jLY\nkVCSbK7D83KpDzVgsilRvNT6QEQTaF4uw/04Ay64FskU8xIf9r6Jt6NKWqqcDrrk\nstR0cG2ZH0j1C/wCstovi7UEs+/P43nkgk3ofYECgYEAnGjGJYEg3wy0p3LtsfU4\n+dGwTxxR9RhPOgmsyu4UG6ZTBRcEFFn7xB+gPbyLCWLIDN0aiBoAye0ZRwQRb1F/\nn/Omw7C0IMB8EH53MNAyUk3S17IEzO5MsZF4jND4c76AVXzm3ke8gnSHimgdfP5J\nVtLz6Ubm3XaFDEVjRQPd2DE=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firstserviceaccount@vici-language-project.iam.gserviceaccount.com",
+  "client_id": "114311899692280802452",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firstserviceaccount%40vici-language-project.iam.gserviceaccount.com"
+}
